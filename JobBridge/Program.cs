@@ -9,6 +9,10 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure port for Render
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -30,7 +34,16 @@ builder.Services.AddSingleton<SessionAuthService>();
 builder.Services.AddSingleton<AuthenticationStateProvider>(provider => provider.GetService<SessionAuthService>()!);
 
 builder.Services.AddHttpClient();
-builder.Services.AddSqlite<JobBridgeContext>("Data Source=jobbridge.db");
+// Configure database based on environment
+if (builder.Environment.IsProduction() && builder.Configuration.GetValue<bool>("UseInMemoryDatabase"))
+{
+    builder.Services.AddDbContext<JobBridgeContext>(options =>
+        options.UseInMemoryDatabase("JobBridgeInMemory"));
+}
+else
+{
+    builder.Services.AddSqlite<JobBridgeContext>(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=jobbridge.db");
+}
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -131,19 +144,15 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Ensure database is created and migrated
-        if (app.Environment.IsProduction())
+        // Ensure database is created
+        if (app.Environment.IsProduction() && builder.Configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
-            // In production, ensure the database file exists
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            var dbPath = connectionString?.Replace("Data Source=", "");
-            if (!string.IsNullOrEmpty(dbPath) && !File.Exists(dbPath))
-            {
-                await db.Database.EnsureCreatedAsync();
-            }
+            await db.Database.EnsureCreatedAsync();
         }
-        
-        await db.Database.MigrateAsync();
+        else
+        {
+            await db.Database.MigrateAsync();
+        }
         
         try
         {

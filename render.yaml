@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: jobbridge
+    runtime: docker
+    plan: free
+    buildCommand: |
+      cd JobBridge
+      dotnet restore
+      dotnet publish -c Release -o out
+    startCommand: |
+      cd JobBridge/out
+      dotnet JobBridge.dll --urls http://0.0.0.0:$PORT
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:$PORT
