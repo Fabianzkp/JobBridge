@@ -35,7 +35,7 @@
     box-shadow: var(--shadow-sm);
 }
 
-.stat-card:hover {
+.stat-card:hover, .stat-card:focus {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -103,7 +103,8 @@
 }
 
 .application-item:hover,
-.job-item:hover {
+.job-item:hover, .application-item:focus,
+.job-item:focus {
     background: rgba(255, 255, 255, 0.9);
     border-color: var(--primary-200);
     transform: translateX(4px);
@@ -198,7 +199,7 @@
     display: block;
 }
 
-.action-card:hover {
+.action-card:hover, .action-card:focus {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     text-decoration: none;
@@ -234,7 +235,7 @@
     text-decoration: none;
 }
 
-.empty-state a:hover {
+.empty-state a:hover, .empty-state a:focus {
     text-decoration: underline;
 }
 

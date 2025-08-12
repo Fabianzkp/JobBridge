@@ -11,13 +11,13 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>My Profile - JobBridge</PageTitle>
-<!-- Profile Container -->
-<div class="profile-container">
+
+<div class="profile-container" role="main">
     @if (hasAccess && jobSeeker != null)
     {
         @if (isAdmin)
         {
-            <div class="profile-section">
+            <section class="profile-section" aria-label="Admin view of complete user registration details">
                 <h2>Complete User Registration Details (Admin View)</h2>
                 <div class="profile-details">
                     <div class="detail-item">
@@ -61,11 +61,11 @@
                         <span>@(!string.IsNullOrEmpty(jobSeeker.ResumeUrl) ? jobSeeker.ResumeUrl : "Not provided")</span>
                     </div>
                 </div>
-            </div>
+            </section>
         }
         else
         {
-            <div class="profile-section">
+            <section class="profile-section" aria-label="Applicant basic profile">
                 <h2>Applicant Basic Profile</h2>
                 <div class="profile-details">
                     <div class="detail-item">
@@ -85,23 +85,24 @@
                         <span>@(!string.IsNullOrEmpty(jobSeeker.User.Phone) ? jobSeeker.User.Phone : "Not provided")</span>
                     </div>
                 </div>
-            </div>
+            </section>
         }
     }
     else if (!hasAccess)
     {
-        <div class="access-denied">
+        <div class="access-denied" role="alert" aria-live="assertive">
             <h2>Access Denied</h2>
             <p>You can only view profiles of job seekers who have applied to your job postings.</p>
         </div>
     }
     else
     {
-        <div class="loading">
+        <div class="loading" aria-live="polite">
             <p>Loading profile...</p>
         </div>
     }
 </div>
+
 
 <!-- Profile Styles -->
 <style>

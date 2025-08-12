@@ -30,15 +30,15 @@
                     </NotAuthorized>
                 </AuthorizeView>
                 <div class="hero-buttons">
-                    <a href="/job-listings" class="btn btn-primary">Browse Jobs</a>
-                    <a href="/profile" class="btn btn-secondary">Update Profile</a>
+                    <a href="/job-listings" class="btn btn-primary" aria-label="Browse available jobs">Browse Jobs</a>
+                    <a href="/profile" class="btn btn-secondary" aria-label="Update your profile">Update Profile</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Dashboard Stats -->
-    <div class="dashboard-stats">
+    <div class="dashboard-stats" aria-live="polite">
         <div class="grid grid-cols-4">
             <StatisticsCard Icon="📊" Value="@totalApplications.ToString()" Label="Total Applications" />
             <StatisticsCard Icon="💾" Value="@savedJobs.ToString()" Label="Saved Jobs" />
@@ -54,17 +54,17 @@
                 <h3>Recent Applications</h3>
                 @if (recentApplications?.Any() == true)
                 {
-                    <div class="application-list">
+                    <div class="application-list" aria-live="polite">
                         @foreach (var application in recentApplications)
                         {
-                            <a href="/jobs/@application.JobPost.Id" class="application-item">
+                            <a href="/jobs/@application.JobPost.Id" class="application-item" aria-label="View details for application to @application.JobPost.JobTitle">
                                 <div class="application-info">
                                     <h4>@application.JobPost.JobTitle</h4>
                                     <p>@application.JobPost.Employer.Name</p>
                                     <span class="application-date">Applied @application.AppliedDate.ToString("MMM dd")</span>
                                 </div>
                                 <div class="application-status">
-                                    <span class="status-badge status-@application.Status.ToString().ToLower()">@application.Status</span>
+                                    <span class="status-badge status-@application.Status.ToString().ToLower()" aria-label="Application status: @application.Status">@application.Status</span>
                                 </div>
                             </a>
                         }
@@ -72,8 +72,8 @@
                 }
                 else
                 {
-                    <div class="empty-state">
-                        <p>No applications yet. <a href="/job-listings">Start browsing jobs</a></p>
+                    <div class="empty-state" aria-live="polite">
+                        <p>No applications yet. <a href="/job-listings" aria-label="Start browsing jobs">Start browsing jobs</a></p>
                     </div>
                 }
             </div>
@@ -83,19 +83,19 @@
                 <h3>Saved Jobs</h3>
                 @if (savedJobsList?.Any() == true)
                 {
-                    <div class="saved-jobs-list">
+                    <div class="saved-jobs-list" aria-live="polite">
                         @foreach (var job in savedJobsList)
                         {
                             <div class="job-item" style="display: flex; flex-direction: column; gap: var(--space-3);">
-                                <a href="/jobs/@job.Id" class="job-info">
+                                <a href="/jobs/@job.Id" class="job-info" aria-label="View job details for @job.JobTitle">
                                     <h4>@job.JobTitle</h4>
                                     <p>@job.Employer.Name</p>
                                     <span class="job-location" aria-hidden="true">📍 @job.Location</span>
                                 </a>
                                 <div class="job-actions">
-                                    <button class="btn btn-secondary btn-sm" style="background-color: #22c55e; color: white; border-color: #22c55e;" @onclick="() => ViewJob(job)">Apply External</button>
-                                    <button class="btn btn-primary btn-sm" @onclick="() => ApplyToJob(job.Id)">Apply Now</button>
-                                    <button class="btn btn-danger btn-sm" @onclick="() => RemoveBookmark(job.Id)">Remove</button>
+                                    <button class="btn btn-secondary btn-sm" style="background-color: var(--success-700); color: white; border-color: #22c55e;" aria-label="View and apply externally to @job.JobTitle" @onclick="() => ViewJob(job)">Apply External</button>
+                                    <button class="btn btn-primary btn-sm" aria-label="Apply now to @job.JobTitle" @onclick="() => ApplyToJob(job.Id)">Apply Now</button>
+                                    <button class="btn btn-danger btn-sm" aria-label="Remove bookmark for @job.JobTitle" @onclick="() => RemoveBookmark(job.Id)">Remove</button>
                                 </div>
                             </div>
                         }
@@ -103,8 +103,8 @@
                 }
                 else
                 {
-                    <div class="empty-state">
-                        <p>No saved jobs yet. <a href="/job-listings">Browse jobs to save</a></p>
+                    <div class="empty-state" aria-live="polite">
+                        <p>No saved jobs yet. <a href="/job-listings" aria-label="Browse jobs to save">Browse jobs to save</a></p>
                     </div>
                 }
             </div>
@@ -116,11 +116,11 @@
             <div class="section-container">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
                     <h3>Active Searches</h3>
-                    <button class="btn btn-secondary btn-sm" @onclick="CreateActiveSearch">Create Active Search</button>
+                    <button class="btn btn-secondary btn-sm" aria-label="Create active search" @onclick="CreateActiveSearch">Create Active Search</button>
                 </div>
                 @if (activeSearchesList?.Any() == true)
                 {
-                    <div class="searches-list">
+                    <div class="searches-list" aria-live="polite">
                         @foreach (var search in activeSearchesList)
                         {
                             <div class="search-item">
@@ -139,8 +139,8 @@
                                     <span class="search-date">Created @search.CreatedAt.ToString("MMM dd")</span>
                                 </div>
                                 <div class="search-actions" style="display: flex; gap: var(--space-2);">
-                                    <button class="btn btn-primary btn-sm" style="flex: 1;" @onclick="() => RunSearch(search)">Run</button>
-                                    <button class="btn btn-danger btn-sm" style="flex: 1;" @onclick="() => RemoveActiveSearch(search.Id)">Remove</button>
+                                    <button class="btn btn-primary btn-sm" style="flex: 1;" aria-label="Run search @search.SearchName" @onclick="() => RunSearch(search)">Run</button>
+                                    <button class="btn btn-danger btn-sm" style="flex: 1;" aria-label="Remove active search @search.SearchName" @onclick="() => RemoveActiveSearch(search.Id)">Remove</button>
                                 </div>
                             </div>
                         }
@@ -148,8 +148,8 @@
                 }
                 else
                 {
-                    <div class="empty-state">
-                        <p>No active searches. <a href="/saved-searches">Create your first search</a></p>
+                    <div class="empty-state" aria-live="polite">
+                        <p>No active searches. <a href="/saved-searches" aria-label="Create your first search">Create your first search</a></p>
                     </div>
                 }
             </div>
@@ -159,7 +159,7 @@
                 <h3>Who Viewed Your Profile</h3>
                 @if (profileViewsList?.Any() == true)
                 {
-                    <div class="profile-views-list">
+                    <div class="profile-views-list" aria-live="polite">
                         @foreach (var view in profileViewsList)
                         {
                             <div class="view-item">
@@ -174,13 +174,15 @@
                 }
                 else
                 {
-                    <div class="empty-state">
+                    <div class="empty-state" aria-live="polite">
                         <p>No profile views yet.</p>
                     </div>
                 }
             </div>
         </div>
     </div>
+
+    <div aria-live="polite" class="sr-only">@applicationMessage</div>
 </div>
 
 @code {
@@ -302,7 +304,7 @@
             .ToListAsync();
     }
 
-        private void NavigateToJob(int jobId)
+    private void NavigateToJob(int jobId)
     {
         Navigation.NavigateTo($"/jobs/{jobId}");
     }

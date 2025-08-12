@@ -9,6 +9,8 @@
 @attribute [Authorize(Roles = "Employer")]
 @inject ILogger<JobCreate> Logger
 
+<PageTitle>Create Job - JobBridge</PageTitle>
+
 
 <div class="job-create-container">
     <!-- Page Header -->
@@ -38,16 +40,16 @@
 
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label class="form-label required">Job Title</label>
-                        <input type="text" class="form-control" placeholder="e.g. Senior Software Engineer"
-                            @bind="jobPost.JobTitle" />
+                        <label id="jobTitleLabel" for="jobTitle" class="form-label required">Job Title</label>
+                        <input id="jobTitle" type="text" class="form-control" placeholder="e.g. Senior Software Engineer"
+                            aria-labelledby="jobTitleLabel" @bind="jobPost.JobTitle" aria-describedby="jobTitleHint" />
                         <ValidationMessage For="@(() => jobPost.JobTitle)" class="text-danger" />
-                        <div class="form-hint">Be specific and clear about the role</div>
+                        <div id="jobTitleHint" class="form-hint">Be specific and clear about the role</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Department</label>
-                        <select class="form-control" @bind="jobPost.Department">
+                        <label id="departmentLabel" for="department" class="form-label required">Department</label>
+                        <select id="department" class="form-control" aria-labelledby="departmentLabel" @bind="jobPost.Department">
                             <option value="">Select Department</option>
                             <option value="Engineering">Engineering</option>
                             <option value="Product">Product</option>
@@ -60,8 +62,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Employment Type</label>
-                        <select class="form-control" @bind="jobPost.EmploymentType">
+                        <label id="employmentTypeLabel" for="employmentType" class="form-label required">Employment Type</label>
+                        <select id="employmentType" class="form-control" aria-labelledby="employmentTypeLabel" @bind="jobPost.EmploymentType">
                             <option value="">Select Type</option>
                             <option value="Full-Time">Full-Time</option>
                             <option value="Part-Time">Part-Time</option>
@@ -73,8 +75,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Experience Level</label>
-                        <select class="form-control" @bind="jobPost.ExperienceLevel">
+                        <label id="experienceLevelLabel" for="experienceLevel" class="form-label required">Experience Level</label>
+                        <select id="experienceLevel" class="form-control" aria-labelledby="experienceLevelLabel" @bind="jobPost.ExperienceLevel">
                             <option value="">Select Level</option>
                             <option value="Entry Level">Entry Level</option>
                             <option value="Mid Level">Mid Level</option>
@@ -86,8 +88,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Work Arrangement</label>
-                        <select class="form-control" @bind="jobPost.WorkArrangement">
+                        <label id="workArrangementLabel" for="workArrangement" class="form-label required">Work Arrangement</label>
+                        <select id="workArrangement" class="form-control" aria-labelledby="workArrangementLabel" @bind="jobPost.WorkArrangement">
                             <option value="">Select Work Arrangement</option>
                             <option value="On-site">On-site</option>
                             <option value="Remote">Remote</option>
@@ -107,15 +109,15 @@
 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label required">Location</label>
-                        <input type="text" class="form-control" placeholder="e.g. San Francisco, CA"
-                            @bind="jobPost.Location" @oninput="OnLocationChanged" />
+                        <label id="locationLabel" for="location" class="form-label required">Location</label>
+                        <input id="location" type="text" class="form-control" placeholder="e.g. San Francisco, CA"
+                            aria-labelledby="locationLabel" @bind="jobPost.Location" @oninput="OnLocationChanged" />
                         <ValidationMessage For="@(() => jobPost.Location)" class="text-danger" />
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Timezone</label>
-                        <select class="form-control" @bind="jobPost.Timezone">
+                        <label id="timezoneLabel" for="timezone" class="form-label required">Timezone</label>
+                        <select id="timezone" class="form-control" aria-labelledby="timezoneLabel" @bind="jobPost.Timezone">
                             <option value="">Select Timezone</option>
                             <option value="PST (Pacific)">PST (Pacific)</option>
                             <option value="MST (Mountain)">MST (Mountain)</option>
@@ -126,28 +128,28 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Minimum Salary</label>
+                        <label id="minSalaryLabel" for="minSalary" class="form-label">Minimum Salary</label>
                         <div class="input-group">
                             <span class="input-prefix">@currencySymbol</span>
-                            <input type="text" class="form-control" placeholder="80,000"
-                                @bind="minSalaryFormatted" @oninput="OnMinSalaryChanged" />
+                            <input id="minSalary" type="text" class="form-control" placeholder="80,000"
+                                aria-labelledby="minSalaryLabel" @bind="minSalaryFormatted" @oninput="OnMinSalaryChanged" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Maximum Salary</label>
+                        <label id="maxSalaryLabel" for="maxSalary" class="form-label">Maximum Salary</label>
                         <div class="input-group">
                             <span class="input-prefix">@currencySymbol</span>
-                            <input type="text" class="form-control" placeholder="120,000"
-                                @bind="maxSalaryFormatted" @oninput="OnMaxSalaryChanged" />
+                            <input id="maxSalary" type="text" class="form-control" placeholder="120,000"
+                                aria-labelledby="maxSalaryLabel" @bind="maxSalaryFormatted" @oninput="OnMaxSalaryChanged" />
                         </div>
                     </div>
 
                     <div class="form-group span-2">
-                        <label class="form-label">Additional Compensation</label>
-                        <input type="text" class="form-control" placeholder="e.g. Equity, bonuses, benefits..."
-                            @bind="jobPost.AdditionalCompensation" />
-                        <div class="form-hint">Mention equity, bonuses, or other benefits</div>
+                        <label id="additionalCompensationLabel" for="additionalCompensation" class="form-label">Additional Compensation</label>
+                        <input id="additionalCompensation" type="text" class="form-control" placeholder="e.g. Equity, bonuses, benefits..."
+                            aria-labelledby="additionalCompensationLabel" @bind="jobPost.AdditionalCompensation" aria-describedby="additionalCompHint" />
+                        <div id="additionalCompHint" class="form-hint">Mention equity, bonuses, or other benefits</div>
                     </div>
                 </div>
             </div>
@@ -160,35 +162,35 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label required">Job Summary</label>
-                    <textarea class="form-control textarea-large" rows="4"
+                    <label id="jobSummaryLabel" for="jobSummary" class="form-label required">Job Summary</label>
+                    <textarea id="jobSummary" class="form-control textarea-large" rows="4"
                         placeholder="Write a compelling summary of the role and what the candidate will do..."
-                        @bind="jobPost.JobSummary"></textarea>
+                        aria-labelledby="jobSummaryLabel" @bind="jobPost.JobSummary" aria-describedby="jobSummaryHint"></textarea>
                     <ValidationMessage For="@(() => jobPost.JobSummary)" class="text-danger" />
-                    <div class="form-hint">Keep it engaging and highlight key aspects of the role</div>
+                    <div id="jobSummaryHint" class="form-hint">Keep it engaging and highlight key aspects of the role</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label required">Key Responsibilities</label>
-                    <textarea class="form-control textarea-large" rows="6"
+                    <label id="keyResponsibilitiesLabel" for="keyResponsibilities" class="form-label required">Key Responsibilities</label>
+                    <textarea id="keyResponsibilities" class="form-control textarea-large" rows="6"
                         placeholder="• List the main responsibilities and duties&#10;• Use bullet points for clarity&#10;• Focus on day-to-day activities"
-                        @bind="jobPost.KeyResponsibilities"></textarea>
+                        aria-labelledby="keyResponsibilitiesLabel" @bind="jobPost.KeyResponsibilities"></textarea>
                     <ValidationMessage For="@(() => jobPost.KeyResponsibilities)" class="text-danger" />
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label required">Required Qualifications</label>
-                    <textarea class="form-control textarea-large" rows="6"
+                    <label id="requiredQualificationsLabel" for="requiredQualifications" class="form-label required">Required Qualifications</label>
+                    <textarea id="requiredQualifications" class="form-control textarea-large" rows="6"
                         placeholder="• List essential skills and experience&#10;• Include education requirements if necessary&#10;• Mention years of experience needed"
-                        @bind="jobPost.RequiredQualifications"></textarea>
+                        aria-labelledby="requiredQualificationsLabel" @bind="jobPost.RequiredQualifications"></textarea>
                     <ValidationMessage For="@(() => jobPost.RequiredQualifications)" class="text-danger" />
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Preferred Qualifications</label>
-                    <textarea class="form-control textarea-large" rows="4"
+                    <label id="preferredQualificationsLabel" for="preferredQualifications" class="form-label">Preferred Qualifications</label>
+                    <textarea id="preferredQualifications" class="form-control textarea-large" rows="4"
                         placeholder="• Nice-to-have skills and experience&#10;• Additional certifications or qualifications"
-                        @bind="jobPost.PreferredQualifications"></textarea>
+                        aria-labelledby="preferredQualificationsLabel" @bind="jobPost.PreferredQualifications"></textarea>
                 </div>
             </div>
 
@@ -200,15 +202,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Required Skills</label>
-                    <textarea class="form-control textarea-large" rows="4" placeholder="Javascript, React, Node.js"
-                        @bind="jobPost.RequiredSkills"></textarea>
+                    <label id="requiredSkillsLabel" for="requiredSkills" class="form-label">Required Skills</label>
+                    <textarea id="requiredSkills" class="form-control textarea-large" rows="4" placeholder="Javascript, React, Node.js"
+                        aria-labelledby="requiredSkillsLabel" @bind="jobPost.RequiredSkills"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Nice-to-Have Skills</label>
-                    <textarea class="form-control textarea-large" rows="4" placeholder="Python, AWS, etc."
-                        @bind="jobPost.NiceToHaveSkills"></textarea>
+                    <label id="niceToHaveSkillsLabel" for="niceToHaveSkills" class="form-label">Nice-to-Have Skills</label>
+                    <textarea id="niceToHaveSkills" class="form-control textarea-large" rows="4" placeholder="Python, AWS, etc."
+                        aria-labelledby="niceToHaveSkillsLabel" @bind="jobPost.NiceToHaveSkills"></textarea>
                 </div>
             </div>
 
@@ -221,8 +223,8 @@
 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label required">Application Method</label>
-                        <select class="form-control" @bind="jobPost.ApplicationMethod">
+                        <label id="applicationMethodLabel" for="applicationMethod" class="form-label required">Application Method</label>
+                        <select id="applicationMethod" class="form-control" aria-labelledby="applicationMethodLabel" @bind="jobPost.ApplicationMethod">
                             <option value="">Select Application Method</option>
                             <option value="JobBridge Application System">JobBridge Application System</option>
                             <option value="External Link/Email">External Link/Email</option>
@@ -231,21 +233,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">External Application URL</label>
-                        <InputText type="url" class="form-control" placeholder="https://company.com/careers/apply"
-                            @bind-Value="jobPost.ExternalApplicationUrl" />
+                        <label id="externalApplicationUrlLabel" for="externalApplicationUrl" class="form-label">External Application URL</label>
+                        <InputText id="externalApplicationUrl" type="url" class="form-control" placeholder="https://company.com/careers/apply"
+                            aria-labelledby="externalApplicationUrlLabel" @bind-Value="jobPost.ExternalApplicationUrl" />
                         <ValidationMessage For="@(() => jobPost.ExternalApplicationUrl)" class="text-danger" />
                         <div class="form-hint">Only required if using external application method</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Application Deadline</label>
-                        <input type="date" class="form-control" @bind="jobPost.ApplicationDeadline" />
+                        <label id="applicationDeadlineLabel" for="applicationDeadline" class="form-label required">Application Deadline</label>
+                        <input id="applicationDeadline" type="date" class="form-control" aria-labelledby="applicationDeadlineLabel" @bind="jobPost.ApplicationDeadline" />
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Job Posting Duration</label>
-                        <select class="form-control" @bind="postDuration">
+                        <label id="postDurationLabel" for="postDuration" class="form-label">Job Posting Duration</label>
+                        <select id="postDuration" class="form-control" aria-labelledby="postDurationLabel" @bind="postDuration">
                             <option value="30">30 days</option>
                             <option value="60">60 days</option>
                             <option value="90">90 days</option>
@@ -254,7 +256,8 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <fieldset class="form-group">
+                    <legend>Job Type</legend>
                     <div class="checkbox-group">
                         <label class="checkbox-option">
                             <input type="radio" name="jobType" value="featured" @onchange="OnJobTypeChanged" checked="@jobPost.IsFeatured" />
@@ -268,12 +271,13 @@
                             <span class="checkbox-hint">Shows an "urgent" badge to attract faster applications</span>
                         </label>
                     </div>
-                </div>
+                </fieldset>
             </div>
 
             <!-- Error Message -->
             <DataAnnotationsValidator />
             <ValidationSummary class="validation-summary" />
+            <div role="alert" aria-live="assertive" class="text-danger">@errorMessage</div>
 
             <!-- Form Actions -->
             <div class="form-actions">
@@ -299,6 +303,7 @@
         </EditForm>
     </div>
 </div>
+
 
 @code {
     [Parameter] public int Id { get; set; }

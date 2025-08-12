@@ -69,20 +69,20 @@
                 <h4>Create New Search</h4>
                 <EditForm Model="@newSearch" OnValidSubmit="@CreateSearch">
                     <div class="mb-3">
-                        <label class="form-label">Search Name</label>
-                        <InputText class="form-control" @bind-Value="newSearch.SearchName" placeholder="e.g., Remote Developer Jobs" />
+                        <label for="searchName" class="form-label">Search Name</label>
+                        <InputText id="searchName" class="form-control" @bind-Value="newSearch.SearchName" placeholder="e.g., Remote Developer Jobs" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Job Title</label>
-                        <InputText class="form-control" @bind-Value="newSearch.JobTitle" placeholder="e.g., Software Developer" />
+                        <label for="jobTitle" class="form-label">Job Title</label>
+                        <InputText id="jobTitle" class="form-control" @bind-Value="newSearch.JobTitle" placeholder="e.g., Software Developer" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Location</label>
-                        <InputText class="form-control" @bind-Value="newSearch.Location" placeholder="e.g., Remote, New York" />
+                        <label for="location" class="form-label">Location</label>
+                        <InputText id="location" class="form-control" @bind-Value="newSearch.Location" placeholder="e.g., Remote, New York" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Employment Type</label>
-                        <InputSelect class="form-control" @bind-Value="newSearch.EmploymentType">
+                        <label for="employmentType" class="form-label">Employment Type</label>
+                        <InputSelect id="employmentType" class="form-control" @bind-Value="newSearch.EmploymentType">
                             <option value="">Any</option>
                             <option value="Full-time">Full-time</option>
                             <option value="Part-time">Part-time</option>
@@ -92,12 +92,12 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label class="form-label">Min Salary</label>
-                            <InputNumber class="form-control" @bind-Value="newSearch.MinSalary" placeholder="50000" />
+                            <label for="minSalary" class="form-label">Min Salary</label>
+                            <InputNumber id="minSalary" class="form-control" @bind-Value="newSearch.MinSalary" placeholder="50000" />
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Max Salary</label>
-                            <InputNumber class="form-control" @bind-Value="newSearch.MaxSalary" placeholder="100000" />
+                            <label for="maxSalary" class="form-label">Max Salary</label>
+                            <InputNumber id="maxSalary" class="form-control" @bind-Value="newSearch.MaxSalary" placeholder="100000" />
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Save Search</button>

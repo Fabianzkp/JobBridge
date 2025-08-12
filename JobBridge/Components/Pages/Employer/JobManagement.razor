@@ -151,7 +151,7 @@
                     </div>
 
                     <div class="quick-actions">
-                        <button class="btn btn-sm btn-toggle @(jobPost.IsActive ? "active" : "")"
+                        <button style="background-color: var(--success-700) ;" class="btn btn-sm btn-toggle @(jobPost.IsActive ? "active" : "")"
                             @onclick="() => ToggleJobStatus(jobPost.Id)">
                             @(jobPost.IsActive ? "Active" : "Inactive")
                         </button>

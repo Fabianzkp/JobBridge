@@ -11,7 +11,6 @@
 @attribute [Authorize]
 
 <PageTitle>My Profile - JobBridge</PageTitle>
-<!-- Profile Container -->
 <div class="profile-container">
     <div class="section-container animate-fadeInUp">
         <h1 class="gradient-text">My Profile</h1>
@@ -21,40 +20,39 @@
     @if (user != null)
     {
         <div class="grid grid-cols-2" style="gap: var(--space-6);">
-            <!-- Personal Information -->
             <div class="section-container">
                 <h3 class="gradient-text">Personal Information</h3>
                 <EditForm Model="@profileModel" OnValidSubmit="UpdateProfile">
                     <DataAnnotationsValidator />
                     
                     <div class="form-group" style="margin-bottom: var(--space-4);">
-                        <label class="form-label">First Name</label>
-                        <InputText class="form-control" @bind-Value="profileModel.FirstName" />
+                        <label class="form-label" for="firstName">First Name</label>
+                        <InputText id="firstName" class="form-control" @bind-Value="profileModel.FirstName" />
                         <ValidationMessage For="@(() => profileModel.FirstName)" class="validation-message" />
                     </div>
 
                     <div class="form-group" style="margin-bottom: var(--space-4);">
-                        <label class="form-label">Last Name</label>
-                        <InputText class="form-control" @bind-Value="profileModel.LastName" />
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <InputText id="lastName" class="form-control" @bind-Value="profileModel.LastName" />
                         <ValidationMessage For="@(() => profileModel.LastName)" class="validation-message" />
                     </div>
 
                     <div class="form-group" style="margin-bottom: var(--space-4);">
-                        <label class="form-label">Email</label>
-                        <InputText class="form-control" @bind-Value="profileModel.Email" disabled="true" />
-                        <small class="text-muted">Email cannot be changed</small>
+                        <label class="form-label" for="email">Email</label>
+                        <InputText id="email" class="form-control" @bind-Value="profileModel.Email" disabled="true" aria-describedby="email-help" />
+                        <small id="email-help" class="text-muted">Email cannot be changed</small>
                     </div>
 
                     <div class="form-group" style="margin-bottom: var(--space-4);">
-                        <label class="form-label">Phone</label>
-                        <InputText class="form-control" @bind-Value="profileModel.Phone" />
+                        <label class="form-label" for="phone">Phone</label>
+                        <InputText id="phone" class="form-control" @bind-Value="profileModel.Phone" />
                         <ValidationMessage For="@(() => profileModel.Phone)" class="validation-message" />
                     </div>
 
                     <div class="form-group" style="margin-bottom: var(--space-4);">
-                        <label class="form-label">Role</label>
-                        <input class="form-control" value="@user.Role" disabled />
-                        <small class="text-muted">Role cannot be changed</small>
+                        <label class="form-label" for="role">Role</label>
+                        <input id="role" class="form-control" value="@user.Role" disabled aria-describedby="role-help" />
+                        <small id="role-help" class="text-muted">Role cannot be changed</small>
                     </div>
 
                     <button type="submit" class="btn btn-gradient" disabled="@isSaving">
@@ -70,40 +68,39 @@
 
                     @if (saveSuccess)
                     {
-                        <div class="alert alert-success" style="margin-top: var(--space-3);">
+                        <div class="alert alert-success" role="status" style="margin-top: var(--space-3);">
                             Profile updated successfully!
                         </div>
                     }
                     @if (!string.IsNullOrEmpty(errorMessage))
                     {
-                        <div class="alert alert-danger" style="margin-top: var(--space-3);">
+                        <div class="alert alert-danger" role="alert" style="margin-top: var(--space-3);">
                             @errorMessage
                         </div>
                     }
                 </EditForm>
             </div>
 
-            <!-- Additional Information Based on Role -->
             <div class="section-container">
                 @if (user.Role == "JobSeeker" && jobSeeker != null)
                 {
                     <h3 class="gradient-text">Job Seeker Information</h3>
                     <EditForm Model="@jobSeekerModel" OnValidSubmit="UpdateJobSeekerInfo">
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Resume URL</label>
-                            <InputText class="form-control" @bind-Value="jobSeekerModel.ResumeUrl" 
+                            <label class="form-label" for="resumeUrl">Resume URL</label>
+                            <InputText id="resumeUrl" class="form-control" @bind-Value="jobSeekerModel.ResumeUrl" 
                                 placeholder="https://example.com/your-resume.pdf" />
                         </div>
 
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Skills</label>
-                            <textarea class="form-control" @bind="jobSeekerModel.Skills" 
+                            <label class="form-label" for="skills">Skills</label>
+                            <textarea id="skills" class="form-control" @bind="jobSeekerModel.Skills" 
                                 rows="3" placeholder="Enter your skills separated by commas"></textarea>
                         </div>
 
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Bio</label>
-                            <textarea class="form-control" @bind="jobSeekerModel.Bio" 
+                            <label class="form-label" for="bio">Bio</label>
+                            <textarea id="bio" class="form-control" @bind="jobSeekerModel.Bio" 
                                 rows="4" placeholder="Tell us about yourself"></textarea>
                         </div>
 
@@ -115,23 +112,23 @@
                     <h3 class="gradient-text">Company Information</h3>
                     <EditForm Model="@employerModel" OnValidSubmit="UpdateEmployerInfo">
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Company Name</label>
-                            <InputText class="form-control" @bind-Value="employerModel.CompanyName" />
+                            <label class="form-label" for="companyName">Company Name</label>
+                            <InputText id="companyName" class="form-control" @bind-Value="employerModel.CompanyName" />
                         </div>
 
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Location</label>
-                            <InputText class="form-control" @bind-Value="employerModel.Location" />
+                            <label class="form-label" for="location">Location</label>
+                            <InputText id="location" class="form-control" @bind-Value="employerModel.Location" />
                         </div>
 
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Industry</label>
-                            <InputText class="form-control" @bind-Value="employerModel.Industry" />
+                            <label class="form-label" for="industry">Industry</label>
+                            <InputText id="industry" class="form-control" @bind-Value="employerModel.Industry" />
                         </div>
 
                         <div class="form-group" style="margin-bottom: var(--space-4);">
-                            <label class="form-label">Number of Employees</label>
-                            <InputNumber class="form-control" @bind-Value="employerModel.NumberOfEmployees" />
+                            <label class="form-label" for="employees">Number of Employees</label>
+                            <InputNumber id="employees" class="form-control" @bind-Value="employerModel.NumberOfEmployees" />
                         </div>
 
                         <button type="submit" class="btn btn-secondary">Update Company Info</button>
@@ -154,25 +151,24 @@
             </div>
         </div>
 
-        <!-- Change Password Section -->
         <div class="section-container" style="margin-top: var(--space-6);">
             <h3 class="gradient-text">Change Password</h3>
             <EditForm Model="@passwordModel" OnValidSubmit="ChangePassword">
                 <DataAnnotationsValidator />
                 <div class="grid grid-cols-3" style="gap: var(--space-4);">
                     <div class="form-group">
-                        <label class="form-label">Current Password</label>
-                        <InputText type="password" class="form-control" @bind-Value="passwordModel.CurrentPassword" />
+                        <label class="form-label" for="currentPassword">Current Password</label>
+                        <InputText id="currentPassword" type="password" class="form-control" @bind-Value="passwordModel.CurrentPassword" />
                         <ValidationMessage For="@(() => passwordModel.CurrentPassword)" class="validation-message" />
                     </div>
                     <div class="form-group">
-                        <label class="form-label">New Password</label>
-                        <InputText type="password" class="form-control" @bind-Value="passwordModel.NewPassword" />
+                        <label class="form-label" for="newPassword">New Password</label>
+                        <InputText id="newPassword" type="password" class="form-control" @bind-Value="passwordModel.NewPassword" />
                         <ValidationMessage For="@(() => passwordModel.NewPassword)" class="validation-message" />
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Confirm New Password</label>
-                        <InputText type="password" class="form-control" @bind-Value="passwordModel.ConfirmPassword" />
+                        <label class="form-label" for="confirmPassword">Confirm New Password</label>
+                        <InputText id="confirmPassword" type="password" class="form-control" @bind-Value="passwordModel.ConfirmPassword" />
                         <ValidationMessage For="@(() => passwordModel.ConfirmPassword)" class="validation-message" />
                     </div>
                 </div>
@@ -188,7 +184,6 @@
     }
 </div>
 
-<!-- Profile Styles -->
 <style>
     .profile-container {
         max-width: 1200px;

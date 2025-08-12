@@ -90,39 +90,39 @@
 }
 
 .btn-primary {
-    background-color: #3b82f6;
+    background-color: var(--primary-700);
     color: white;
 }
 
-.btn-primary:hover {
-    background-color: #2563eb;
+.btn-primary:hover, .btn-primary:focus {
+    background-color:var(--primary-800);
 }
 
 .btn-warning {
-    background-color: #f59e0b;
+    background-color: var(--warning-700);
     color: white;
 }
 
-.btn-warning:hover {
-    background-color: #d97706;
+.btn-warning:hover, .btn-warning:focus {
+    background-color:var(--warning-700);
 }
 
 .btn-info {
-    background-color: #06b6d4;
+    background-color:var(--primary-700);
     color: white;
 }
 
-.btn-info:hover {
-    background-color: #0891b2;
+.btn-info:hover, .btn-info:focus {
+    background-color: var(--primary-800);
 }
 
 .btn-danger {
-    background-color: #ef4444;
+    background-color: var(--error-600);
     color: white;
 }
 
-.btn-danger:hover {
-    background-color: #dc2626;
+.btn-danger:hover, .btn-danger:focus {
+    background-color: var(--error-700);
 }
 
 .maintenance-actions {
