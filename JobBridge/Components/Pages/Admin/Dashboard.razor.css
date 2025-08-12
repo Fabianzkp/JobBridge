@@ -195,37 +195,16 @@
     border: 1px solid var(--success-700);
 }
 
-.btn-success:hover {
-    background: var(--success-800);
-    border-color: var(--success-800);
-    transform: translateY(-1px);
-    color: white;
-}
-
 .btn-danger {
     background: var(--error-700);
     color: white;
     border: 1px solid var(--error-700);
 }
 
-.btn-danger:hover {
-    background: var(--error-800);
-    border-color: var(--error-800);
-    transform: translateY(-1px);
-    color: white;
-}
-
 .btn-warning {
     background: var(--warning-700);
     color: white;
     border: 1px solid var(--warning-700);
-}
-
-.btn-warning:hover {
-    background: var(--warning-800);
-    border-color: var(--warning-800);
-    transform: translateY(-1px);
-    color: white;
 }
 
 .btn-sm {
